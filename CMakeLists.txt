@@ -226,6 +226,14 @@ if(TRAVIS_CI_BUILD)
   add_definitions(-Werror)
 endif()
 
+if(MSVC)
+  # We link against the static runtime - replace /MD with /MT
+  foreach(_var
+    CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELWITHDEBINFO)
+    string(REPLACE "/MD" "/MT" ${_var} "${${_var}}")
+  endforeach()
+endif()
+
 if(CMAKE_BUILD_TYPE MATCHES Debug)
   set(DEBUG 1)
 else()
