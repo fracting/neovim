@@ -60,7 +60,7 @@ describe('shell functions', function()
 
     local argv = ffi.cast('char**',
                           shell.shell_build_argv(to_cstr(cmd), nil))
-    local status = shell.os_system(argv, input_or, input_len, output, nread)
+    local status = shell.os_system(argv, input_or, input_len, false, output, nread)
 
     return status, intern(output[0], nread[0])
   end
