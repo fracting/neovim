@@ -161,3 +161,20 @@ add_custom_target(clean-shared-libraries
 add_custom_target(third-party ALL
   COMMAND ${CMAKE_COMMAND} -E touch .third-party
   DEPENDS clean-shared-libraries)
+
+if(WIN32)
+  set(DIFFUTILS_URL http://downloads.sourceforge.net/project/gnuwin32/diffutils/2.8.7-1/diffutils-2.8.7-1-bin.zip)
+  set(DIFFUTILS_SHA256 6d64ee291c9b49a2841dbccea9795140802ff6b73fd2f4848635bbc974dc5a9c)
+
+  # DIFFUTILS needs libintl3.dll and libiconv2.dll
+  set(LIBINTL3_URL http://downloads.sourceforge.net/project/gnuwin32/libintl/0.14.4/libintl-0.14.4-bin.zip)
+  set(LIBINTL3_SHA256 4e2e5f2e9becb50ee9d828f2400ca4115a8887d99c3c2b8fb59b1b77e504655b)
+  set(LIBICONV2_URL http://downloads.sourceforge.net/project/gnuwin32/libiconv/1.9.2-1/libiconv-1.9.2-1-bin.zip)
+  set(LIBICONV2_SHA256 66f494fb37d2ac9367ef8398071f19db4b670a3d2ea2361f970d65195c336bd9)
+
+  set(WIN32YANK_URL https://github.com/equalsraf/win32yank/releases/download/v0.0.1/win32yank.zip)
+  set(WIN32YANK_SHA256 d5b4b965a50f74962e45e97384b1a9dbac6c1520ddf1798a7b9bbae19e80ed58)
+
+  include(GetWindowsTools)
+endif()
+
