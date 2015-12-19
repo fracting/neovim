@@ -8,18 +8,20 @@ environment:
   - GENERATOR: Visual Studio 14
     DEPS_PATH: deps32
     BUILD_NUPKG: 1
-# Currently not working in appveyor, maybe its the compiler version
-#  - GENERATOR: MinGW Makefiles
-#    DEPS_PATH: deps-mingw
+  - GENERATOR: MinGW Makefiles
+    DEPS_PATH: deps-mingw
 install: []
 build_script:
 # See http://help.appveyor.com/discussions/problems/539-cloning-gyp-fails
 - git config --global url."http://".insteadOf https://
-# Workaround for CMake not wanting sh.exe on PATH for MinGW
-- set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+# Workaround for CMake not wanting sh.exe on PATH for MinGW
+- set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
 # Mingw MUST be first in path otherwise CMake will block
 # see http://help.appveyor.com/discussions/problems/2371-mingw-build-started-hanging-without-output
-- if "%GENERATOR%" == "MinGW Makefiles" set PATH=C:\MinGW\bin;%PATH%
+# Use the MinGW version from the Qt tools (4.9 instead of 4.8)
+- if "%GENERATOR%" == "MinGW Makefiles" set PATH=C:\Qt\Tools\mingw492_32\bin;%PATH%
+# Workaround for toolchain issue
+- if "%GENERATOR%" == "MinGW Makefiles" set CC=gcc
 - mkdir %DEPS_PATH%
 - cd %DEPS_PATH%
 - cmake -G "%GENERATOR%" ..\third-party\
@@ -27,11 +29,11 @@ build_script:
 - cd ..
 - mkdir build
 - cd build
-- cmake -G "%GENERATOR%" -DCMAKE_BUILD_TYPE=Debug -DDEPS_PREFIX=..\%DEPS_PATH%\usr -DCMAKE_INSTALL_PREFIX=..\INSTALL ..
-- cmake --build .
-- bin\nvim.exe --version
-- cmake --build . --target install
-- if DEFINED BUILD_NUPKG nuget pack -Version 0.0.0-pr810 ..\contrib\neovim.nuspec
+#- cmake -G "%GENERATOR%" -DCMAKE_BUILD_TYPE=Debug -DDEPS_PREFIX=..\%DEPS_PATH%\usr -DCMAKE_INSTALL_PREFIX=..\INSTALL ..
+#- cmake --build .
+#- bin\nvim.exe --version
+#- cmake --build . --target install
+#- if DEFINED BUILD_NUPKG nuget pack -Version 0.0.0-pr810 ..\contrib\neovim.nuspec
 nuget:
   project_feed: true
 artifacts:
@@ -39,3 +41,9 @@ artifacts:
   name: Neovim
 - path: 'build/*.nupkg'
   name: nupkgs
+- path: deps32
+  name: deps32
+- path: deps64
+  name: deps64
+- path: deps-mingw
+  name: deps-mingw
