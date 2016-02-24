@@ -111,6 +111,9 @@ set(JEMALLOC_SHA256 0d8a9c8a98adb6983e0ccb521d45d9db1656ef3e71d0b14fb333f2c8138f
 set(LUV_URL https://github.com/luvit/luv/archive/146f1ce4c08c3b67f604c9ee1e124b1cf5c15cf3.tar.gz)
 set(LUV_SHA256 3d537f8eb9fa5adb146a083eae22af886aee324ec268e2aa0fa75f2f1c52ca7a)
 
+set(WINPTY_URL https://github.com/equalsraf/winpty/releases/download/neovim-810/winpty.zip)
+set(WINPTY_SHA256 af2e76af5933139a727d1688e413994b2a20fe5e2f620c446e7ed91196b054a6)
+
 if(USE_BUNDLED_UNIBILIUM)
   include(BuildUnibilium)
 endif()
