@@ -3,7 +3,11 @@
 # writing a recipe that is meant for cross-compile, use the HOSTDEPS_* variables
 # instead of DEPS_* - check the main CMakeLists.txt for a list.
 
-option(USE_BUNDLED_BUSTED "Use the bundled version of busted to run tests." ON)
+if(WIN32)
+  option(USE_BUNDLED_BUSTED "Use the bundled version of busted to run tests." OFF)
+else()
+  option(USE_BUNDLED_BUSTED "Use the bundled version of busted to run tests." ON)
+endif()
 
 # BuildLuarocks(CONFIGURE_COMMAND ... BUILD_COMMAND ... INSTALL_COMMAND ...)
 # Reusable function to build luarocks, wraps ExternalProject_Add.
