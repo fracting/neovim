@@ -135,7 +135,7 @@ if(USE_BUNDLED_BUSTED)
   endif()
   add_custom_command(OUTPUT ${HOSTDEPS_LIB_DIR}/luarocks/rocks/luv
     COMMAND ${LUAROCKS_BINARY}
-    ARGS make ${LUAROCKS_BUILDARGS} LIBUV_DIR=${HOSTDEPS_INSTALL_DIR} CFLAGS='-O0 -g3 -fPIC'
+    ARGS make rockspecs/luv-1.9.0-2.rockspec ${LUAROCKS_BUILDARGS} LIBUV_DIR=${HOSTDEPS_INSTALL_DIR} CFLAGS='-O0 -g3 -fPIC'
     WORKING_DIRECTORY ${DEPS_BUILD_DIR}/src/luv
     DEPENDS ${LUV_DEPS})
   add_custom_target(luv

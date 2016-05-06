@@ -75,8 +75,8 @@ endif()
 
 include(ExternalProject)
 
-set(LIBUV_URL https://github.com/libuv/libuv/archive/v1.8.0.tar.gz)
-set(LIBUV_SHA256 906e1a5c673c95cb261adeacdb7308a65b4a8f7c9c50d85f3021364951fa9cde)
+set(LIBUV_URL https://github.com/libuv/libuv/archive/v1.9.0.tar.gz)
+set(LIBUV_SHA256 f8b8272a0d80138b709d38fad2baf771899eed61e7f9578d17898b07a1a2a5eb)
 
 set(MSGPACK_URL https://github.com/msgpack/msgpack-c/archive/cpp-1.0.0.tar.gz)
 set(MSGPACK_SHA256 afda64ca445203bb7092372b822bae8b2539fdcebbfc3f753f393628c2bcfe7d)
@@ -102,8 +102,8 @@ set(LIBVTERM_SHA256 1a4272be91d9614dc183a503786df83b6584e4afaab7feaaa5409f841afb
 set(JEMALLOC_URL https://github.com/jemalloc/jemalloc/releases/download/4.0.2/jemalloc-4.0.2.tar.bz2)
 set(JEMALLOC_SHA256 0d8a9c8a98adb6983e0ccb521d45d9db1656ef3e71d0b14fb333f2c8138f4611)
             
-set(LUV_URL https://github.com/luvit/luv/archive/146f1ce4c08c3b67f604c9ee1e124b1cf5c15cf3.tar.gz)
-set(LUV_SHA256 3d537f8eb9fa5adb146a083eae22af886aee324ec268e2aa0fa75f2f1c52ca7a)
+set(LUV_URL https://github.com/luvit/luv/archive/8beb6a0ce2aec6c4184de88c7206bf0fa824691f.tar.gz)
+set(LUV_SHA256 f9d6c7ddc2fb21c5298cf0c59c4fd8143953704fa7147e486ababcc0bd55f2df)
 
 if(USE_BUNDLED_UNIBILIUM)
   include(BuildUnibilium)
