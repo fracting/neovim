@@ -474,23 +474,31 @@ if(BUSTED_PRG)
   add_custom_target(benchmark-prereqs
     DEPENDS ${BENCHMARK_PREREQS})
 
-  check_lua_module(${LUA_PRG} "ffi" LUA_HAS_FFI)
-  if(LUA_HAS_FFI)
-    add_custom_target(unittest
-      COMMAND ${CMAKE_COMMAND}
-        -DBUSTED_PRG=${BUSTED_PRG}
-        -DLUA_PRG=${LUA_PRG}
-        -DWORKING_DIR=${CMAKE_CURRENT_SOURCE_DIR}
-        -DBUSTED_OUTPUT_TYPE=${BUSTED_OUTPUT_TYPE}
-        -DTEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test
-        -DBUILD_DIR=${CMAKE_BINARY_DIR}
-        -DTEST_TYPE=unit
-        -P ${PROJECT_SOURCE_DIR}/cmake/RunTests.cmake
-      DEPENDS ${UNITTEST_PREREQS}
-      ${TEST_TARGET_ARGS})
+  option(ENABLE_UNITTESTS "Enable the unit tests." ON)
+  if(ENABLE_UNITTESTS)
+    check_lua_module(${LUA_PRG} "ffi" LUA_HAS_FFI)
+    if(LUA_HAS_FFI)
+      add_custom_target(unittest
+        COMMAND ${CMAKE_COMMAND}
+          -DBUSTED_PRG=${BUSTED_PRG}
+          -DLUA_PRG=${LUA_PRG}
+          -DWORKING_DIR=${CMAKE_CURRENT_SOURCE_DIR}
+          -DBUSTED_OUTPUT_TYPE=${BUSTED_OUTPUT_TYPE}
+          -DTEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test
+          -DBUILD_DIR=${CMAKE_BINARY_DIR}
+          -DTEST_TYPE=unit
+          -P ${PROJECT_SOURCE_DIR}/cmake/RunTests.cmake
+        DEPENDS ${UNITTEST_PREREQS}
+        ${TEST_TARGET_ARGS})
+    else()
+      message(FATAL_ERROR "The Luajit ffi is required for the unit tests but
+        is not available in ${LUA_PRG}. If you want to build without the unit
+        tests use -DENABLE_UNITTESTS=OFF")
+    endif()
   else()
-    message(WARNING "The Luajit ffi is not available in ${LUA_PRG}"
-	    ", disabling unit tests")
+    add_custom_target(unittest
+      ${CMAKE_COMMAND} -E sleep 0
+      COMMENT "The unittest target was disabled at configuration (ENABLE_UNITTESTS=${ENABLE_UNITTESTS}), skipping.")
   endif()
 
   add_custom_target(functionaltest
