@@ -1,6 +1,8 @@
 #ifndef NVIM_TUI_INPUT_H
 #define NVIM_TUI_INPUT_H
 
+#ifdef UNIX
+
 #include <stdbool.h>
 
 #include <termkey.h>
@@ -24,4 +26,5 @@ typedef struct term_input {
 # include "tui/input.h.generated.h"
 #endif
 
+#endif  // UNIX
 #endif  // NVIM_TUI_INPUT_H

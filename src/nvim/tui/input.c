@@ -1,4 +1,4 @@
-
+#ifdef UNIX
 #include "nvim/tui/input.h"
 #include "nvim/vim.h"
 #include "nvim/api/vim.h"
@@ -387,3 +387,5 @@ static void restart_reading(void **argv)
   rstream_init_fd(input->loop, &input->read_stream, input->in_fd, 0xfff, input);
   rstream_start(&input->read_stream, read_cb);
 }
+
+#endif  // UNIX

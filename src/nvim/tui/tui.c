@@ -1,3 +1,4 @@
+#ifdef UNIX
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -926,3 +927,33 @@ static void flush_buf(UI *ui)
     unibi_out(ui, unibi_cursor_invisible);
   }
 }
+
+#else  // NOT(UNIX): Dummy TUI
+
+#include <nvim/os/input.h>
+#include <nvim/vim.h>
+#include <nvim/msgpack_rpc/server.h>
+
+#include "nvim/tui/tui.h"
+
+void *tui_start(void)
+{
+  if (!os_isatty(fileno(stderr))) {
+    return NULL;
+  }
+
+  fprintf(stderr, "Neovim was built without a Terminal UI, press Ctrl+C to exit\n");
+
+  size_t len;
+  char **addrs = server_address_list(&len);
+  if (addrs != NULL) {
+    fprintf(stderr, "currently listening on the following address(es)\n");
+
+    for (size_t i=0; i<len; i++) {
+      fprintf(stderr, "\t%s\n", addrs[i]);
+    }
+  }
+  return NULL;
+}
+
+#endif
