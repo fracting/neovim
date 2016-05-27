@@ -42,18 +42,6 @@ function(GetTool)
   list(APPEND THIRD_PARTY_DEPS ${__gettool_TARGET})
 endfunction()
 
-GetTool(TARGET diffutils
-  INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPS_INSTALL_DIR}/bin
-    COMMAND ${CMAKE_COMMAND} -E copy ${DEPS_BUILD_DIR}/src/diffutils/bin/diff.exe ${DEPS_INSTALL_DIR}/bin)
-
-GetTool(TARGET libintl3
-  INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPS_INSTALL_DIR}/bin
-    COMMAND ${CMAKE_COMMAND} -E copy ${DEPS_BUILD_DIR}/src/libintl3/bin/libintl3.dll ${DEPS_INSTALL_DIR}/bin)
-
-GetTool(TARGET libiconv2
-  INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPS_INSTALL_DIR}/bin
-    COMMAND ${CMAKE_COMMAND} -E copy ${DEPS_BUILD_DIR}/src/libiconv2/bin/libiconv2.dll ${DEPS_INSTALL_DIR}/bin)
-
 GetTool(TARGET win32yank
   INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPS_INSTALL_DIR}/bin
     COMMAND ${CMAKE_COMMAND} -E copy 
